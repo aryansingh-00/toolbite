@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const SEO = ({ title, description, ogImage, canonicalPath }) => {
+const SEO = ({ title, description, canonicalPath }) => {
   const siteName = 'ToolBite';
   const fullTitle = title ? `${title} | ${siteName}` : 'ToolBite - Fast, Modern Online Tools';
   const finalDescription = description || 'ToolBite offers a curated collection of fast, simple, and free online tools for students, creators, and developers.';

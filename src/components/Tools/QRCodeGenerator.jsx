@@ -7,10 +7,8 @@ const QRCodeGenerator = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (!input.trim()) {
-      setQrUrl('');
-      return;
-    }
+    // Only handle debouncing if input is present
+    if (!input.trim()) return;
 
     const timer = setTimeout(() => {
       setIsLoading(true);
@@ -19,7 +17,18 @@ const QRCodeGenerator = () => {
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [input]);
+  }, [input, setQrUrl, setIsLoading]);
+
+  const handleInputChange = (e) => {
+    const val = e.target.value;
+    setInput(val);
+    
+    // Immediate reset for empty input to improve responsiveness and avoid lint issues
+    if (!val.trim()) {
+      setQrUrl('');
+      setIsLoading(false);
+    }
+  };
 
   const handleDownload = async () => {
     if (!qrUrl) return;
@@ -50,6 +59,7 @@ const QRCodeGenerator = () => {
   const handleReset = () => {
     setInput('');
     setQrUrl('');
+    setIsLoading(false);
   };
 
   return (
@@ -62,7 +72,7 @@ const QRCodeGenerator = () => {
               className="qr-textarea"
               placeholder="https://example.com or your secret message..."
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={handleInputChange}
             ></textarea>
           </div>
           

@@ -15,7 +15,7 @@ const CaseConverter = () => {
   };
 
   const handleSentenceCase = () => {
-    const transformed = text.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, (c) => c.toUpperCase());
+    const transformed = text.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, (c) => c.toUpperCase());
     setText(transformed);
   };
 

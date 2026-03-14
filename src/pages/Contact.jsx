@@ -29,14 +29,14 @@ const Contact = () => {
                 <div className="info-icon">📧</div>
                 <div>
                   <h4>Email Us</h4>
-                  <p>hello@toolbite.com</p>
+                  <p><a href="mailto:hello.toolbite@gmail.com" className="contact-link">hello.toolbite@gmail.com</a></p>
                 </div>
               </div>
               <div className="info-card card">
                 <div className="info-icon">🐦</div>
                 <div>
                   <h4>Follow Us</h4>
-                  <p>@toolbite on Twitter</p>
+                  <p><a href="https://www.instagram.com/hello.toolbite" target="_blank" rel="noopener noreferrer" className="contact-link">@hello.toolbite</a></p>
                 </div>
               </div>
               <div className="info-card card">
