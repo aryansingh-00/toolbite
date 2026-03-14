@@ -1,0 +1,132 @@
+.qr-generator-tool {
+  width: 100%;
+}
+
+.qr-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.qr-input-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.input-group label {
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.qr-textarea {
+  width: 100%;
+  min-height: 200px;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  background: white;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.6;
+  outline: none;
+  resize: vertical;
+  transition: all var(--transition-fast);
+}
+
+.qr-textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+.qr-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.qr-preview-section {
+  position: sticky;
+  top: 100px;
+}
+
+.qr-preview-card {
+  padding: 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.qr-display {
+  width: 240px;
+  height: 240px;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.qr-display img {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
+.qr-placeholder {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  padding: 2rem;
+  text-align: center;
+}
+
+.qr-download-btn {
+  width: 100%;
+}
+
+.qr-note {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+}
+
+/* Loader Styles */
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-color);
+  border-top: 3px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .qr-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .qr-preview-section {
+    position: static;
+  }
+  
+  .qr-preview-card {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
