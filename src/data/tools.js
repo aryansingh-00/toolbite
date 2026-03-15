@@ -58,6 +58,16 @@ export const tools = [
     category: 'Text Tools',
     icon: '🗣️',
     link: '/tools/text-to-speech'
+  },
+  {
+    id: 'image-compressor',
+    title: 'Image Compressor',
+    description: 'Compress JPG, PNG, and WEBP images with full control over quality and size directly in your browser.',
+    metaTitle: 'Image Compressor - Reduce Image File Size Online | ToolBite',
+    metaDescription: 'Free online image compressor. Reduce the file size of your JPG, PNG, and WEBP images instantly without uploading to any server.',
+    category: 'Image Tools',
+    icon: '🗜️',
+    link: '/tools/image-compressor'
   }
 ];
 

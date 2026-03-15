@@ -13,6 +13,7 @@ import QRCodeGenerator from './components/Tools/QRCodeGenerator'
 import JSONFormatter from './components/Tools/JSONFormatter'
 import ResumeBuilder from './components/Tools/ResumeBuilder'
 import TextToSpeech from './components/Tools/TextToSpeech'
+import ImageCompressor from './components/Tools/ImageCompressor'
 import SEO from './components/SEO'
 import Analytics from './components/Analytics'
 import AdPlacement from './components/AdPlacement'
@@ -55,7 +56,8 @@ const TOOL_COMPONENTS = {
   'qr-code-generator': QRCodeGenerator,
   'json-formatter': JSONFormatter,
   'resume-builder': ResumeBuilder,
-  'text-to-speech': TextToSpeech
+  'text-to-speech': TextToSpeech,
+  'image-compressor': ImageCompressor
 };
 
 function App() {

@@ -76,7 +76,10 @@ const Home = () => {
           </div>
           <div className="categories-grid">
             {categoryHighlights.map((cat, index) => (
-              <div key={index} className="category-card card" onClick={() => window.location.href = '/tools'}>
+              <div key={index} className="category-card card" onClick={() => {
+                window.history.pushState({}, '', '/tools');
+                window.dispatchEvent(new PopStateEvent('popstate'));
+              }}>
                 <div className="category-icon" aria-hidden="true">{cat.icon}</div>
                 <h3>{cat.name}</h3>
                 <p>{cat.count} tools</p>
