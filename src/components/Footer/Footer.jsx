@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="footer-grid">
           <div className="footer-brand">
             <div className="logo">
-              <span className="logo-icon">咬</span>
+              <span className="logo-icon">𝕋𝔹</span>
               <span className="logo-text">Tool<span>Bite</span></span>
             </div>
             <p className="footer-desc">
