@@ -30,9 +30,13 @@ const QRCodeGenerator = () => {
     }
   };
 
+  const [isCopied, setIsCopied] = useState(false);
+  const [downloadState, setDownloadState] = useState('idle');
+
   const handleDownload = async () => {
     if (!qrUrl) return;
     
+    setDownloadState('downloading');
     try {
       const response = await fetch(qrUrl);
       const blob = await response.blob();
@@ -44,22 +48,29 @@ const QRCodeGenerator = () => {
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
+      
+      setDownloadState('success');
+      setTimeout(() => setDownloadState('idle'), 2000);
     } catch (error) {
       console.error('Download failed:', error);
-      alert('Failed to download QR code. Please try again.');
+      setDownloadState('error');
+      setTimeout(() => setDownloadState('idle'), 3000);
     }
   };
 
   const handleCopyInput = () => {
     if (!input) return;
     navigator.clipboard.writeText(input);
-    alert('Input copied to clipboard!');
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000);
   };
 
   const handleReset = () => {
     setInput('');
     setQrUrl('');
     setIsLoading(false);
+    setIsCopied(false);
+    setDownloadState('idle');
   };
 
   return (
@@ -78,7 +89,9 @@ const QRCodeGenerator = () => {
           
           <div className="qr-actions">
             <button className="btn btn-secondary" onClick={handleReset}>Reset</button>
-            <button className="btn btn-secondary" onClick={handleCopyInput} disabled={!input}>Copy Input</button>
+            <button className="btn btn-secondary" onClick={handleCopyInput} disabled={!input}>
+              {isCopied ? '✓ Copied!' : 'Copy Input'}
+            </button>
           </div>
         </div>
 
@@ -101,11 +114,14 @@ const QRCodeGenerator = () => {
             </div>
             
             <button 
-              className="btn btn-primary qr-download-btn" 
+              className={`btn qr-download-btn ${downloadState === 'error' ? 'btn-danger' : 'btn-primary'}`} 
               onClick={handleDownload}
-              disabled={!qrUrl}
+              disabled={!qrUrl || downloadState === 'downloading'}
             >
-              Download QR Code
+              {downloadState === 'downloading' ? 'Downloading...' :
+               downloadState === 'success' ? '✓ Downloaded!' :
+               downloadState === 'error' ? '❌ Download Failed' :
+               'Download QR Code'}
             </button>
             <p className="qr-note">Scannable by any mobile device camera.</p>
           </div>

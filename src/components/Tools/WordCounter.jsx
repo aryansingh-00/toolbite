@@ -49,9 +49,12 @@ const WordCounter = () => {
   }, [text]);
 
   const handleClear = () => setText('');
+  const [isCopied, setIsCopied] = useState(false);
   const handleCopy = () => {
+    if (!text) return;
     navigator.clipboard.writeText(text);
-    alert('Text copied to clipboard!');
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000);
   };
 
   return (
@@ -97,7 +100,9 @@ const WordCounter = () => {
         
         <div className="editor-actions">
           <button className="btn btn-secondary" onClick={handleClear}>Clear Text</button>
-          <button className="btn btn-primary" onClick={handleCopy}>Copy Text</button>
+          <button className="btn btn-primary" onClick={handleCopy}>
+            {isCopied ? '✓ Copied!' : 'Copy Text'}
+          </button>
         </div>
       </div>
     </div>

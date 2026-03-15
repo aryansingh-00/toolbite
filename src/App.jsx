@@ -10,6 +10,9 @@ import { PrivacyPolicy, TermsOfService } from './pages/Legal'
 import WordCounter from './components/Tools/WordCounter'
 import CaseConverter from './components/Tools/CaseConverter'
 import QRCodeGenerator from './components/Tools/QRCodeGenerator'
+import JSONFormatter from './components/Tools/JSONFormatter'
+import ResumeBuilder from './components/Tools/ResumeBuilder'
+import TextToSpeech from './components/Tools/TextToSpeech'
 import SEO from './components/SEO'
 import Analytics from './components/Analytics'
 import AdPlacement from './components/AdPlacement'
@@ -49,7 +52,10 @@ const ROUTES = {
 const TOOL_COMPONENTS = {
   'word-counter': WordCounter,
   'case-converter': CaseConverter,
-  'qr-code-generator': QRCodeGenerator
+  'qr-code-generator': QRCodeGenerator,
+  'json-formatter': JSONFormatter,
+  'resume-builder': ResumeBuilder,
+  'text-to-speech': TextToSpeech
 };
 
 function App() {

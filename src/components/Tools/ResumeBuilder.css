@@ -1,0 +1,241 @@
+.resume-builder-tool {
+  width: 100%;
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: 450px 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.form-section {
+  padding: 2rem;
+  background: white;
+  position: sticky;
+  top: 100px;
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group.full-width {
+  grid-column: span 2;
+}
+
+.form-group label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  font-size: 0.9375rem;
+  transition: var(--transition-fast);
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Resume Preview Styling */
+.preview-section {
+  background: #f1f5f9;
+  padding: 3rem;
+  border-radius: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.resume-preview {
+  width: 100%;
+  max-width: 800px;
+  min-height: 1000px;
+  background: white;
+  padding: 4rem;
+  box-shadow: var(--shadow-xl);
+  color: #1e293b;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.resume-header {
+  border-bottom: 2px solid #334155;
+  padding-bottom: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.resume-header h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  color: #0f172a;
+}
+
+.resume-header .job-title {
+  font-size: 1.25rem;
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.contact-info {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.resume-body section {
+  margin-bottom: 2.5rem;
+}
+
+.resume-body h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #64748b;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+}
+
+.resume-body p, 
+.multiline-text {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: #334155;
+  white-space: pre-wrap;
+}
+
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-tag {
+  background: #f1f5f9;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #475569;
+}
+
+/* Print Styles */
+@media print {
+  @page {
+    margin: 15mm;
+    size: auto;
+  }
+
+  /* Hide UI elements definitely */
+  .header, 
+  .footer, 
+  .form-section, 
+  .tool-template-header, 
+  .cta-section, 
+  .tool-actions,
+  .hero-tags,
+  .ad-placement {
+    display: none !important;
+  }
+
+  /* Reset layout to allow the resume to take full width */
+  .app-container,
+  .main-content,
+  .resume-builder-tool,
+  .tool-grid,
+  .preview-section {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    background: white !important;
+    box-shadow: none !important;
+  }
+
+  .resume-preview {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    box-shadow: none !important;
+    min-height: auto !important;
+    background: white !important;
+    border: none !important;
+  }
+
+  /* Ensure all text is visible and black for better print quality */
+  .resume-preview, .resume-preview * {
+    color: #000 !important;
+    visibility: visible !important;
+  }
+
+  .skill-tag {
+    border: 1px solid #e2e8f0 !important;
+    background: #f8fafc !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .tool-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-section {
+    position: static;
+    max-height: none;
+  }
+  
+  .preview-section {
+    padding: 1.5rem;
+  }
+  
+  .resume-preview {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-group.full-width {
+    grid-column: span 1;
+  }
+}

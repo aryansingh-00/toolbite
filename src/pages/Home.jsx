@@ -8,7 +8,7 @@ import { tools, categories } from '../data/tools'
 import './Home.css'
 
 const Home = () => {
-  const featuredTools = tools.slice(0, 3)
+  const featuredTools = tools.slice(0, 6)
 
   const categoryHighlights = categories.slice(1, 6).map(cat => ({
     ...cat,
@@ -30,9 +30,9 @@ const Home = () => {
             </div>
             <div className="hero-tags">
               <span>Popular:</span>
-              <a href="/tools/word-counter">Word Counter</a>
-              <a href="/tools/case-converter">Case Converter</a>
-              <a href="/tools/qr-code-generator">QR Code</a>
+              <a href="/tools/text-to-speech">Text to Speech</a>
+              <a href="/tools/json-formatter">JSON Formatter</a>
+              <a href="/tools/resume-builder">Resume Builder</a>
             </div>
             
             <AdPlacement zone="hero" />

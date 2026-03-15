@@ -36,7 +36,7 @@ export const tools = [
     metaTitle: 'JSON Formatter - Online JSON Validator & Prettier | ToolBite',
     metaDescription: 'Format and validate JSON instantly. Make your JSON data readable and lint-free with our free online tool.',
     category: 'Developer Tools',
-    icon: 'raw',
+    icon: '{ }',
     link: '/tools/json-formatter'
   },
   {
