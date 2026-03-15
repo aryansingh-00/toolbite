@@ -133,8 +133,14 @@ const Home = () => {
             <h2 id="cta-title">Ready to boost your productivity?</h2>
             <p>Join thousands of users who use ToolBite every day to simplify their workflow.</p>
             <div className="cta-actions">
-              <Button size="lg" onClick={() => window.location.href = '/tools'}>Explore All Tools</Button>
-              <Button variant="secondary" size="lg" onClick={() => window.location.href = '/about'}>About Us</Button>
+              <Button size="lg" onClick={() => {
+                window.history.pushState({}, '', '/tools');
+                window.dispatchEvent(new PopStateEvent('popstate'));
+              }}>Explore All Tools</Button>
+              <Button variant="secondary" size="lg" onClick={() => {
+                window.history.pushState({}, '', '/about');
+                window.dispatchEvent(new PopStateEvent('popstate'));
+              }}>About Us</Button>
             </div>
           </article>
         </div>

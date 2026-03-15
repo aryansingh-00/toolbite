@@ -50,8 +50,8 @@ const Footer = () => {
           <p>&copy; {currentYear} ToolBite. All rights reserved.</p>
           <div className="social-links">
             <a href="https://www.instagram.com/hello.toolbite" target="_blank" rel="noopener noreferrer" aria-label="Instagram">📸</a>
-            <a href="#" aria-label="Twitter">𝕏</a>
-            <a href="#" aria-label="GitHub">󰊤</a>
+            <a href="https://www.threads.com/@hello.toolbite" aria-label="Threads">𝕏</a>
+            <a href="https://github.com/aryansingh-00" aria-label="GitHub">󰊤</a>
           </div>
 
         </div>
