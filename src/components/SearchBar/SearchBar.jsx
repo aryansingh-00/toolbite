@@ -3,7 +3,7 @@ import './SearchBar.css'
 
 const SearchBar = ({ placeholder = "Search for tools...", onSearch }) => {
   return (
-    <div className="search-bar-container">
+    <form className="search-bar-container" onSubmit={(e) => e.preventDefault()}>
       <div className="search-icon">🔍</div>
       <input 
         type="text" 
@@ -11,8 +11,8 @@ const SearchBar = ({ placeholder = "Search for tools...", onSearch }) => {
         placeholder={placeholder}
         onChange={(e) => onSearch && onSearch(e.target.value)}
       />
-      <button className="search-button">Search</button>
-    </div>
+      <button type="submit" className="search-button">Search</button>
+    </form>
   )
 }
 

@@ -25,7 +25,10 @@ const Home = () => {
             <p className="hero-subtitle">
               ToolBite offers a curated collection of fast, simple, and free online tools designed for students, creators, and developers.
             </p>
-            <div className="hero-search">
+            <div className="hero-search" onClick={() => {
+              window.history.pushState({}, '', '/tools');
+              window.dispatchEvent(new PopStateEvent('popstate'));
+            }} style={{cursor: 'pointer'}}>
               <SearchBar />
             </div>
             <div className="hero-tags">
