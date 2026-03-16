@@ -24,6 +24,7 @@ import './index.css'
  * Route Configuration
  * Centralized mapping of paths to components and metadata.
  */
+
 const ROUTES = {
   '/': { component: Home, title: 'Home' },
   '/index.html': { component: Home, title: 'Home' },

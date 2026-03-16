@@ -91,6 +91,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+      
 
       {/* Why Choose Section */}
       <section className="why-choose" aria-labelledby="why-title">
@@ -131,6 +132,14 @@ const Home = () => {
           </div>
         </div>
       </section>
+       <h1 className="text-4xl font-bold text-center mt-6">
+Free AI Tools and Online Utilities – ToolBite
+</h1>
+
+<p className="text-center mt-3 text-gray-600">
+Discover powerful AI tools, image tools, and productivity utilities to simplify your work.
+</p>
+                     
 
       {/* CTA Section */}
       <section className="cta-section" aria-labelledby="cta-title">
