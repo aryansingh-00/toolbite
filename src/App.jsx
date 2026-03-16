@@ -17,6 +17,7 @@ import ImageCompressor from './components/Tools/ImageCompressor'
 import SEO from './components/SEO'
 import Analytics from './components/Analytics'
 import AdPlacement from './components/AdPlacement'
+import AdSenseScript from './components/Ads/AdSenseScript'
 import { tools } from './data/tools'
 import './index.css'
 
@@ -133,9 +134,6 @@ function App() {
           >
             {ToolComponent ? <ToolComponent /> : <div className="p-8 text-center">Tool coming soon...</div>}
           </ToolTemplate>
-          <div className="container">
-            <AdPlacement zone="footer" />
-          </div>
         </>
       );
     }
@@ -152,6 +150,7 @@ function App() {
 
   return (
     <Layout>
+      <AdSenseScript />
       {renderContent()}
     </Layout>
   )

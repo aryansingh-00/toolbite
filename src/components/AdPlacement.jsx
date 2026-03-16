@@ -1,21 +1,24 @@
 import React from 'react';
+import AdSenseAd from './Ads/AdSenseAd';
 import './AdPlacement.css';
 
 /**
  * AdPlacement Component
  * 
- * Reserves space for future AdSense or other ad providers.
- * Using fixed heights prevents "Layout Shift" which helps with SEO and UX.
+ * Wraps the Google AdSense ad with a fixed-height container
+ * to prevent "Layout Shift" which helps with SEO and UX.
  * 
  * @param {string} zone - The location of the ad (hero, sidebar, inline, footer)
  */
 const AdPlacement = ({ zone = 'inline', className = '' }) => {
-  // Map zones to specific placeholder behaviors/styles
+  // Define heights to prevent Layout Shift
   const zoneConfig = {
-    hero: { label: 'Premium Sponsor', minHeight: '90px' },
-    sidebar: { label: 'Advertisement', minHeight: '600px' },
-    inline: { label: 'Advertisement', minHeight: '250px' },
-    footer: { label: 'Advertisement', minHeight: '90px' }
+    hero: { minHeight: '90px' },
+    sidebar: { minHeight: '600px' },
+    inline: { minHeight: '250px' },
+    toolTop: { minHeight: '90px' },
+    toolBottom: { minHeight: '250px' },
+    footer: { minHeight: '90px' }
   };
 
   const config = zoneConfig[zone] || zoneConfig.inline;
@@ -24,12 +27,11 @@ const AdPlacement = ({ zone = 'inline', className = '' }) => {
     <div 
       className={`ad-placement ad-zone-${zone} ${className}`}
       style={{ minHeight: config.minHeight }}
-      aria-hidden="true"
     >
-      <div className="ad-placeholder-content">
-        <span className="ad-label">{config.label}</span>
-        {/* Ad script or iframe would go here later */}
-      </div>
+      <AdSenseAd 
+        slotType={zone}
+        className="w-full h-full"
+      />
     </div>
   );
 };

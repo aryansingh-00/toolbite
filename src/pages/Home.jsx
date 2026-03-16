@@ -37,14 +37,16 @@ const Home = () => {
       >
         <SearchBar />
       </div>
+      <div className="mt-6 w-full flex justify-center">
+        <AdPlacement zone="hero" className="hide-on-mobile" />
+      </div>
+      
       <div className="hero-tags">
         <span>Popular:</span>
         <a href="/tools/text-to-speech">Text to Speech</a>
         <a href="/tools/json-formatter">JSON Formatter</a>
         <a href="/tools/resume-builder">Resume Builder</a>
       </div>
-
-      <AdPlacement zone="hero" />
     </div>
   </div>
 </section>
