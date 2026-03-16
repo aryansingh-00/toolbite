@@ -19,29 +19,35 @@ const Home = () => {
     <main className="home-page">
       {/* Hero Section */}
       <section className="hero" aria-labelledby="hero-title">
-        <div className="container">
-          <div className="hero-content">
-            <h1 id="hero-title">All the tools you need, in <span className="highlight">one bite</span>.</h1>
-            <p className="hero-subtitle">
-              ToolBite offers a curated collection of fast, simple, and free online tools designed for students, creators, and developers.
-            </p>
-            <div className="hero-search" onClick={() => {
-              window.history.pushState({}, '', '/tools');
-              window.dispatchEvent(new PopStateEvent('popstate'));
-            }} style={{cursor: 'pointer'}}>
-              <SearchBar />
-            </div>
-            <div className="hero-tags">
-              <span>Popular:</span>
-              <a href="/tools/text-to-speech">Text to Speech</a>
-              <a href="/tools/json-formatter">JSON Formatter</a>
-              <a href="/tools/resume-builder">Resume Builder</a>
-            </div>
-            
-            <AdPlacement zone="hero" />
-          </div>
-        </div>
-      </section>
+  <div className="container">
+    <div className="hero-content">
+      <h1 id="hero-title">
+        Free AI Tools and Online Utilities by <span className="highlight">ToolBite</span>
+      </h1>
+      <p className="hero-subtitle">
+        ToolBite offers a curated collection of fast, simple, and free online tools designed for students, creators, and developers.
+      </p>
+      <div
+        className="hero-search"
+        onClick={() => {
+          window.history.pushState({}, '', '/tools');
+          window.dispatchEvent(new PopStateEvent('popstate'));
+        }}
+        style={{ cursor: 'pointer' }}
+      >
+        <SearchBar />
+      </div>
+      <div className="hero-tags">
+        <span>Popular:</span>
+        <a href="/tools/text-to-speech">Text to Speech</a>
+        <a href="/tools/json-formatter">JSON Formatter</a>
+        <a href="/tools/resume-builder">Resume Builder</a>
+      </div>
+
+      <AdPlacement zone="hero" />
+    </div>
+  </div>
+</section>
 
       {/* Featured Tools Section */}
       <section className="featured-section" aria-labelledby="featured-title">
