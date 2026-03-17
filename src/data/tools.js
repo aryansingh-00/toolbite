@@ -92,12 +92,42 @@ export const tools = [
   {
     id: 'ai-paragraph-rewriter',
     title: 'AI Paragraph Rewriter',
-    description: 'Improve the flow, grammar, and professionalism of any text.',
+    description: 'Instantly improve the clarity, tone, and professionalism of your writing with our AI-powered text rewriter.',
     metaTitle: 'AI Paragraph Rewriter - Improve Text Flow | ToolBite',
     metaDescription: 'Free AI-powered text rewriter. Improve grammar, vocabulary, and professionalism of your paragraphs instantly.',
     category: 'Text Tools',
     icon: '✨',
     link: '/tools/ai-paragraph-rewriter'
+  },
+  {
+    id: 'ai-image-generator',
+    title: 'AI Image Generator',
+    description: 'Transform your ideas into stunning visual art. Generate high-quality images from simple text prompts using DALL-E 3.',
+    metaTitle: 'AI Image Generator - Text to Image | ToolBite',
+    metaDescription: 'Create stunning AI-generated images from simple text prompts. Fast, free, and easy to use.',
+    category: 'Image Tools',
+    icon: '🎨',
+    link: '/tools/ai-image-generator'
+  },
+  {
+    id: 'ai-background-remover',
+    title: 'AI Background Remover',
+    description: 'Automatically remove backgrounds from images in one click. Perfect for product photos, profiles, and design assets.',
+    metaTitle: 'AI Background Remover - Free Image Cutout | ToolBite',
+    metaDescription: 'Remove backgrounds from images instantly automatically using AI. Download high-quality transparent PNGs.',
+    category: 'Image Tools',
+    icon: '✂️',
+    link: '/tools/ai-background-remover'
+  },
+  {
+    id: 'ai-image-enhancer',
+    title: 'AI Image Enhancer',
+    description: 'Upscale and restore low-quality images. Improve sharpness, remove noise, and enhance facial details with AI.',
+    metaTitle: 'AI Image Enhancer - Improve Image Quality | ToolBite',
+    metaDescription: 'Enhance and upscale your photos with AI. Make blurry images sharp and clear in one click.',
+    category: 'Image Tools',
+    icon: '🪄',
+    link: '/tools/ai-image-enhancer'
   }
 ];
 

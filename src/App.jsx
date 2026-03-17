@@ -7,18 +7,24 @@ import ToolTemplate from './pages/ToolTemplate'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import { PrivacyPolicy, TermsOfService } from './pages/Legal'
-import WordCounter from './components/Tools/WordCounter'
-import CaseConverter from './components/Tools/CaseConverter'
-import QRCodeGenerator from './components/Tools/QRCodeGenerator'
-import JSONFormatter from './components/Tools/JSONFormatter'
-import ResumeBuilder from './components/Tools/ResumeBuilder'
-import TextToSpeech from './components/Tools/TextToSpeech'
-import ImageCompressor from './components/Tools/ImageCompressor'
-import AIEmailWriter from './components/Tools/AIEmailWriter'
-import AIBlogGenerator from './components/Tools/AIBlogGenerator'
-import AIParagraphRewriter from './components/Tools/AIParagraphRewriter'
 import SEO from './components/SEO'
 import Analytics from './components/Analytics'
+
+// Lazy load tool components
+const WordCounter = React.lazy(() => import('./components/Tools/WordCounter'));
+const CaseConverter = React.lazy(() => import('./components/Tools/CaseConverter'));
+const QRCodeGenerator = React.lazy(() => import('./components/Tools/QRCodeGenerator'));
+const JSONFormatter = React.lazy(() => import('./components/Tools/JSONFormatter'));
+const ResumeBuilder = React.lazy(() => import('./components/Tools/ResumeBuilder'));
+const TextToSpeech = React.lazy(() => import('./components/Tools/TextToSpeech'));
+const ImageCompressor = React.lazy(() => import('./components/Tools/ImageCompressor'));
+const AIEmailWriter = React.lazy(() => import('./components/Tools/AIEmailWriter'));
+const AIBlogGenerator = React.lazy(() => import('./components/Tools/AIBlogGenerator'));
+const AIParagraphRewriter = React.lazy(() => import('./components/Tools/AIParagraphRewriter'));
+const AIImageGenerator = React.lazy(() => import('./components/Tools/AIImageGenerator'));
+const AIBackgroundRemover = React.lazy(() => import('./components/Tools/AIBackgroundRemover'));
+const AIImageEnhancer = React.lazy(() => import('./components/Tools/AIImageEnhancer'));
+
 import AdPlacement from './components/AdPlacement'
 import AdSenseScript from './components/Ads/AdSenseScript'
 import { tools } from './data/tools'
@@ -65,7 +71,10 @@ const TOOL_COMPONENTS = {
   'image-compressor': ImageCompressor,
   'ai-email-writer': AIEmailWriter,
   'ai-blog-generator': AIBlogGenerator,
-  'ai-paragraph-rewriter': AIParagraphRewriter
+  'ai-paragraph-rewriter': AIParagraphRewriter,
+  'ai-image-generator': AIImageGenerator,
+  'ai-background-remover': AIBackgroundRemover,
+  'ai-image-enhancer': AIImageEnhancer
 };
 
 function App() {
@@ -154,12 +163,14 @@ function App() {
     );
   };
 
-  return (
-    <Layout>
-      <AdSenseScript />
-      {renderContent()}
-    </Layout>
-  )
+    return (
+      <Layout>
+        <AdSenseScript />
+        <React.Suspense fallback={<div className="p-20 text-center"><span className="spinner"></span></div>}>
+          {renderContent()}
+        </React.Suspense>
+      </Layout>
+    )
 }
 
 export default App

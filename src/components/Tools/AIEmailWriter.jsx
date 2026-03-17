@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import Button from '../Button/Button';
+import Skeleton from '../Skeleton/Skeleton';
 import { generateEmail } from '../../utils/ai';
 import './AITools.css';
+
+// Simple session cache
+const cache = new Map();
 
 const AIEmailWriter = () => {
   const [purpose, setPurpose] = useState('');
@@ -13,10 +17,21 @@ const AIEmailWriter = () => {
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
 
+  const MAX_CHARS = 500;
+
   const handleGenerate = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
+    
     if (!purpose.trim()) {
       setError('Please provide the purpose of the email.');
+      return;
+    }
+
+    // Check cache
+    const cacheKey = `${purpose}-${tone}-${recipient}`;
+    if (cache.has(cacheKey)) {
+      setOutput(cache.get(cacheKey));
+      setError('');
       return;
     }
 
@@ -28,8 +43,9 @@ const AIEmailWriter = () => {
     try {
       const result = await generateEmail(purpose, tone, recipient);
       setOutput(result);
+      cache.set(cacheKey, result);
     } catch (err) {
-      setError(err.message || 'Failed to generate email. Please check your API key.');
+      setError(err.message || 'Failed to generate email. Please check your internet connection.');
     } finally {
       setIsLoading(false);
     }
@@ -50,6 +66,35 @@ const AIEmailWriter = () => {
     setOutput('');
     setError('');
   };
+
+  const applyExample = (ex) => {
+    setPurpose(ex.purpose);
+    setTone(ex.tone);
+    setRecipient(ex.recipient);
+    // Scroll to top of tool
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const examples = [
+    {
+      title: 'Job Interview Follow-up',
+      purpose: 'Following up on a job interview I had last Tuesday for the Software Engineer position. I am still interested and enjoyed meeting the team.',
+      tone: 'Professional',
+      recipient: 'Hiring Manager'
+    },
+    {
+      title: 'Meeting Reschedule',
+      purpose: 'Need to reschedule our sync tomorrow because of a personal emergency. Suggest moving it to Friday at 10 AM.',
+      tone: 'Friendly',
+      recipient: 'Project Team'
+    },
+    {
+      title: 'Cold Outreach',
+      purpose: 'Introducing our new AI design services. We help startups automate their UI/UX workflow.',
+      tone: 'Persuasive',
+      recipient: 'Marketing Director'
+    }
+  ];
 
   return (
     <div className="ai-tool-container">
@@ -92,11 +137,14 @@ const AIEmailWriter = () => {
                 id="purpose"
                 placeholder="What exactly should this email say? e.g. Following up on a job interview I had last Tuesday."
                 value={purpose}
-                onChange={(e) => setPurpose(e.target.value)}
+                onChange={(e) => setPurpose(e.target.value.substring(0, MAX_CHARS))}
                 required
                 rows={5}
                 disabled={isLoading}
               />
+              <span className={`char-counter ${purpose.length >= MAX_CHARS ? 'limit-reached' : ''}`}>
+                {purpose.length}/{MAX_CHARS}
+              </span>
             </div>
 
             <div className="ai-actions">
@@ -114,7 +162,14 @@ const AIEmailWriter = () => {
               </Button>
             </div>
             
-            {error && <div className="ai-error-message">{error}</div>}
+            {error && (
+              <div className="ai-error-message">
+                {error}
+                <div className="retry-button">
+                  <Button size="sm" variant="outline" onClick={handleGenerate}>Retry</Button>
+                </div>
+              </div>
+            )}
           </form>
         </div>
 
@@ -128,11 +183,13 @@ const AIEmailWriter = () => {
             )}
           </div>
           
-          <div className={`ai-output-container ${!output ? 'empty' : ''}`}>
+          <div className={`ai-output-container ${!output && !isLoading ? 'empty' : ''}`}>
             {isLoading ? (
-              <div className="loading-state">
-                <div className="loading-spinner"></div>
-                <p>AI is writing your email...</p>
+              <div className="ai-output-content">
+                <Skeleton lines={8} />
+                <p style={{ marginTop: '1.5rem', textAlign: 'center', color: 'var(--text-tertiary)', fontSize: '0.875rem' }}>
+                  AI is writing your email...
+                </p>
               </div>
             ) : output ? (
               <div className="output-preview">{output}</div>
@@ -142,6 +199,29 @@ const AIEmailWriter = () => {
                 <p>Fill out the details on the left and click Generate to see your AI-written email here.</p>
               </div>
             )}
+          </div>
+        </div>
+      </div>
+
+      <div className="ai-guide-section">
+        <div className="guide-card card">
+          <h3>How to use</h3>
+          <ul>
+            <li><strong>Recipient:</strong> Tell the AI who you are writing to for better context.</li>
+            <li><strong>Tone:</strong> Choose a tone that fits your relationship with the recipient.</li>
+            <li><strong>Goal:</strong> Be specific about what you want to achieve (e.g., "Schedule a meeting" or "Ask for a refund").</li>
+            <li><strong>Refine:</strong> If the result isn't perfect, tweak your prompt and hit Generate again.</li>
+          </ul>
+        </div>
+        <div className="guide-card card">
+          <h3>Try these examples</h3>
+          <div className="examples-grid">
+            {examples.map((ex, i) => (
+              <div key={i} className="example-card" onClick={() => applyExample(ex)}>
+                <strong>{ex.title}</strong>
+                <p>{ex.purpose.substring(0, 80)}...</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
