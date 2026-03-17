@@ -68,9 +68,38 @@ export const tools = [
     category: 'Image Tools',
     icon: '🗜️',
     link: '/tools/image-compressor'
+  },
+  {
+    id: 'ai-email-writer',
+    title: 'AI Email Writer',
+    description: 'Generate professional emails instantly. Just provide the purpose, tone, and recipient.',
+    metaTitle: 'AI Email Writer - Generate Professional Emails | ToolBite',
+    metaDescription: 'Free AI email generator. Write professional, cold, or friendly emails in seconds by providing a simple prompt.',
+    category: 'Text Tools',
+    icon: '✉️',
+    link: '/tools/ai-email-writer'
+  },
+  {
+    id: 'ai-blog-generator',
+    title: 'AI Blog Generator',
+    description: 'Create SEO-optimized blog articles based on your topic and keywords.',
+    metaTitle: 'AI Blog Generator - Write Articles Fast | ToolBite',
+    metaDescription: 'Free AI blog post generator. Instantly create structured, SEO-friendly articles using advanced AI.',
+    category: 'Text Tools',
+    icon: '✍️',
+    link: '/tools/ai-blog-generator'
+  },
+  {
+    id: 'ai-paragraph-rewriter',
+    title: 'AI Paragraph Rewriter',
+    description: 'Improve the flow, grammar, and professionalism of any text.',
+    metaTitle: 'AI Paragraph Rewriter - Improve Text Flow | ToolBite',
+    metaDescription: 'Free AI-powered text rewriter. Improve grammar, vocabulary, and professionalism of your paragraphs instantly.',
+    category: 'Text Tools',
+    icon: '✨',
+    link: '/tools/ai-paragraph-rewriter'
   }
 ];
-
 
 export const categories = [
   { name: 'All', icon: '🌟' },

@@ -11,8 +11,8 @@ const Layout = ({ children }) => {
       <main className="main-content">
         {children}
       </main>
-      <div className="container px-4 mt-8 mb-4 flex justify-center w-full">
-        <AdPlacement zone="footer" className="w-full max-w-5xl" />
+      <div className="footer-ad-wrapper">
+        <AdPlacement zone="footer" />
       </div>
       <Footer />
     </div>

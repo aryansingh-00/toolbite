@@ -14,6 +14,9 @@ import JSONFormatter from './components/Tools/JSONFormatter'
 import ResumeBuilder from './components/Tools/ResumeBuilder'
 import TextToSpeech from './components/Tools/TextToSpeech'
 import ImageCompressor from './components/Tools/ImageCompressor'
+import AIEmailWriter from './components/Tools/AIEmailWriter'
+import AIBlogGenerator from './components/Tools/AIBlogGenerator'
+import AIParagraphRewriter from './components/Tools/AIParagraphRewriter'
 import SEO from './components/SEO'
 import Analytics from './components/Analytics'
 import AdPlacement from './components/AdPlacement'
@@ -59,7 +62,10 @@ const TOOL_COMPONENTS = {
   'json-formatter': JSONFormatter,
   'resume-builder': ResumeBuilder,
   'text-to-speech': TextToSpeech,
-  'image-compressor': ImageCompressor
+  'image-compressor': ImageCompressor,
+  'ai-email-writer': AIEmailWriter,
+  'ai-blog-generator': AIBlogGenerator,
+  'ai-paragraph-rewriter': AIParagraphRewriter
 };
 
 function App() {

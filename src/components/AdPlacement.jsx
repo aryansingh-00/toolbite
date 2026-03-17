@@ -8,17 +8,18 @@ import './AdPlacement.css';
  * Wraps the Google AdSense ad with a fixed-height container
  * to prevent "Layout Shift" which helps with SEO and UX.
  * 
- * @param {string} zone - The location of the ad (hero, sidebar, inline, footer)
+ * @param {string} zone - The location of the ad (hero, sidebar, inline, footer, toolTop, toolBottom)
+ * @param {string} className - Additional CSS classes
  */
 const AdPlacement = ({ zone = 'inline', className = '' }) => {
   // Define heights to prevent Layout Shift
   const zoneConfig = {
-    hero: { minHeight: '90px' },
-    sidebar: { minHeight: '600px' },
+    hero: { minHeight: '100px' },
+    sidebar: { minHeight: '250px' },
     inline: { minHeight: '250px' },
-    toolTop: { minHeight: '90px' },
+    toolTop: { minHeight: '100px' },
     toolBottom: { minHeight: '250px' },
-    footer: { minHeight: '90px' }
+    footer: { minHeight: '100px' }
   };
 
   const config = zoneConfig[zone] || zoneConfig.inline;
@@ -30,7 +31,6 @@ const AdPlacement = ({ zone = 'inline', className = '' }) => {
     >
       <AdSenseAd 
         slotType={zone}
-        className="w-full h-full"
       />
     </div>
   );

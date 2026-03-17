@@ -238,4 +238,27 @@
   .form-group.full-width {
     grid-column: span 1;
   }
+
+  .resume-preview {
+    padding: 1.5rem;
+    min-height: auto;
+  }
+
+  .resume-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .contact-info {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .preview-section {
+    padding: 1rem;
+    border-radius: 0.75rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
 }

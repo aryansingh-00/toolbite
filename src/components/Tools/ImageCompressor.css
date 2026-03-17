@@ -94,11 +94,29 @@
 .action-buttons {
   display: flex;
   gap: 1rem;
-  min-width: 300px;
+  flex-wrap: wrap;
 }
 
 .full-width {
   width: 100%;
+}
+
+@media (max-width: 576px) {
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .upload-area {
+    min-height: 200px;
+  }
+
+  .upload-label {
+    padding: 2rem 1.5rem;
+  }
+
+  .image-container {
+    height: 180px;
+  }
 }
 
 .previews-container {

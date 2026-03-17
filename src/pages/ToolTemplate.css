@@ -56,8 +56,8 @@
 .tool-main {
   min-height: 500px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .tool-placeholder {
@@ -112,5 +112,36 @@
   .tool-header {
     flex-direction: column;
     gap: 1.5rem;
+  }
+
+  .tool-sidebar {
+    order: 2;
+  }
+}
+
+@media (max-width: 576px) {
+  .tool-template {
+    padding: 2rem 0 4rem;
+  }
+
+  .tool-header-info h1 {
+    font-size: 1.75rem;
+  }
+
+  .tool-header-info p {
+    font-size: 1rem;
+  }
+
+  .tool-main.card {
+    padding: 1rem;
+  }
+
+  .tool-actions {
+    flex-wrap: wrap;
+  }
+
+  .breadcrumb {
+    margin-bottom: 1.25rem;
+    font-size: 0.8125rem;
   }
 }

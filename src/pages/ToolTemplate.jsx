@@ -27,15 +27,13 @@ const ToolTemplate = ({ title, description, category, children }) => {
         <div className="tool-layout">
           <article className="tool-main card">
             {/* Top banner above the tool interface */}
-            <AdPlacement zone="toolTop" className="mb-6 tool-inline-ad" />
+            <AdPlacement zone="toolTop" className="tool-inline-ad" />
             
             {/* The actual tool component */}
             {children}
 
             {/* Inline ad below the tool interface */}
-            <div className="mt-8">
-              <AdPlacement zone="toolBottom" className="tool-inline-ad" />
-            </div>
+            <AdPlacement zone="toolBottom" className="tool-inline-ad" />
           </article>
           
           <aside className="tool-sidebar">
@@ -52,7 +50,7 @@ const ToolTemplate = ({ title, description, category, children }) => {
             </section>
             
             {/* Ad before related tools section */}
-            <AdPlacement zone="inline" className="sidebar-ad mt-6 mb-4" />
+            <AdPlacement zone="inline" className="sidebar-ad" />
 
             <section className="sidebar-card card">
               <h4>Related Tools</h4>

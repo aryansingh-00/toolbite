@@ -37,9 +37,7 @@ const Home = () => {
       >
         <SearchBar />
       </div>
-      <div className="mt-6 w-full flex justify-center">
-        <AdPlacement zone="hero" className="hide-on-mobile" />
-      </div>
+      <AdPlacement zone="hero" className="hide-on-mobile" />
       
       <div className="hero-tags">
         <span>Popular:</span>
@@ -140,14 +138,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-       <h1 className="text-4xl font-bold text-center mt-6">
-Free AI Tools and Online Utilities – ToolBite
-</h1>
 
-<p className="text-center mt-3 text-gray-600">
-Discover powerful AI tools, image tools, and productivity utilities to simplify your work.
-</p>
-                     
 
       {/* CTA Section */}
       <section className="cta-section" aria-labelledby="cta-title">

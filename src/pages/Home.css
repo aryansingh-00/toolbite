@@ -186,14 +186,45 @@
 
 @media (max-width: 576px) {
   .hero {
-    padding: 6rem 0 4rem;
+    padding: 5rem 0 3rem;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.0625rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-tags {
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
   
   .cta-content {
-    padding: 3rem 1.5rem;
+    padding: 2.5rem 1.25rem;
   }
   
+  .cta-content h2 {
+    font-size: 1.75rem;
+  }
+
   .cta-actions {
     flex-direction: column;
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+
+  .category-card {
+    padding: 1.25rem;
+  }
+
+  .category-icon {
+    font-size: 2rem;
   }
 }

@@ -63,8 +63,24 @@ const AdSenseAd = ({
     // In development mode, show a placeholder so developers can see where ads will be
     if (import.meta.env.DEV) {
        return (
-         <div className={`flex items-center justify-center bg-gray-100 border border-dashed border-gray-300 rounded p-4 text-gray-500 text-sm h-32 w-full ${className}`} style={style}>
-           [Ad Placeholder] Set VITE_ADSENSE_PUBLISHER_ID to view ads natively
+         <div
+           className={`ad-dev-placeholder ${className}`}
+           style={{
+             display: 'flex',
+             alignItems: 'center',
+             justifyContent: 'center',
+             backgroundColor: '#f3f4f6',
+             border: '2px dashed #d1d5db',
+             borderRadius: '8px',
+             padding: '1rem',
+             color: '#6b7280',
+             fontSize: '0.875rem',
+             width: '100%',
+             minHeight: '100px',
+             ...style,
+           }}
+         >
+           [Ad Placeholder] Set VITE_ADSENSE_PUBLISHER_ID to view ads
          </div>
        );
     }
@@ -76,7 +92,23 @@ const AdSenseAd = ({
     console.warn('AdSenseAd: Missing adSlot prop or valid slotType. Ad cannot be displayed.');
     if (import.meta.env.DEV) {
       return (
-        <div className={`flex items-center justify-center bg-red-50 border border-dashed border-red-300 rounded p-4 text-red-500 text-sm h-32 w-full ${className}`} style={style}>
+        <div
+          className={`ad-dev-placeholder ${className}`}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#fef2f2',
+            border: '2px dashed #fca5a5',
+            borderRadius: '8px',
+            padding: '1rem',
+            color: '#ef4444',
+            fontSize: '0.875rem',
+            width: '100%',
+            minHeight: '100px',
+            ...style,
+          }}
+        >
           [Ad Error] Missing adSlot property
         </div>
       );
@@ -87,7 +119,7 @@ const AdSenseAd = ({
   return (
     <ins
       className={`adsbygoogle ${className}`}
-      style={style}
+      style={{ display: 'block', width: '100%', ...style }}
       data-ad-client={publisherId}
       data-ad-slot={finalAdSlot}
       data-ad-format={finalAdFormat}
