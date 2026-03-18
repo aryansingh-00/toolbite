@@ -19,27 +19,29 @@ const Contact = () => {
     const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-    // Check if keys are set (they are currently placeholders in .env)
-    if (!serviceId || serviceId === 'your_service_id') {
-      console.error('EmailJS not configured');
-      setError('Email service is not configured. Please check your .env file.');
+    // Check if keys are set
+    if (!serviceId || serviceId === 'your_service_id' || !publicKey || publicKey === 'your_public_key') {
+      console.error('EmailJS not properly configured in .env');
+      setError('Email service is not configured correctly. Please check your .env file and restart the server.');
       setLoading(false);
       return;
     }
 
+    // Initialize with public key
+    emailjs.init(publicKey);
+
     emailjs.sendForm(
       serviceId,
       templateId,
-      form.current,
-      publicKey
+      form.current
     )
     .then((result) => {
       console.log('Email sent successfully:', result.text);
       setSubmitted(true);
       setLoading(false);
-    }, (error) => {
-      console.error('Email sending failed:', error.text);
-      setError('Failed to send message. Please try again later or email us directly.');
+    }, (err) => {
+      console.error('Email sending failed detailed error:', err);
+      setError(`Failed to send message: ${err.text || 'Unknown error'}. Please try again later.`);
       setLoading(false);
     });
   };
