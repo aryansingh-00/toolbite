@@ -1,48 +1,30 @@
 /**
- * Utility functions for interacting with the OpenAI API.
- * Ensure VITE_OPENAI_API_KEY is set in your .env file.
+ * Utility functions for interacting with the OpenAI API via internal proxy.
  */
-
-const getApiKey = () => {
-    const key = import.meta.env.VITE_OPENAI_API_KEY;
-    if (!key) {
-        throw new Error("Missing OpenAI API Key. Please add VITE_OPENAI_API_KEY to your .env file.");
-    }
-    return key;
-};
 
 /**
- * Generic function to call the OpenAI Chat Completions API
+ * Generic function to call the internal OpenAI proxy
  */
-const callOpenAI = async (systemPrompt, userPrompt, temperature = 0.7) => {
-    const apiKey = getApiKey();
-    
+const callOpenAI = async (payload) => {
     try {
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        const response = await fetch('/api/openai', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`
             },
-            body: JSON.stringify({
-                model: 'gpt-3.5-turbo', // You can change this to gpt-4 or gpt-4o if preferred
-                messages: [
-                    { role: 'system', content: systemPrompt },
-                    { role: 'user', content: userPrompt }
-                ],
-                temperature: temperature,
-            })
+            body: JSON.stringify(payload)
         });
 
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error?.message || 'Failed to generate content from OpenAI');
+            const errorData = await response.json().catch(() => ({}));
+            console.error('API Proxy Error:', response.status, errorData);
+            throw new Error(errorData.error || `Failed to generate content (Status: ${response.status})`);
         }
 
         const data = await response.json();
-        return data.choices[0].message.content.trim();
+        return data;
     } catch (error) {
-        console.error('OpenAI API Error:', error);
+        console.error('AI Proxy request failed:', error);
         throw error;
     }
 };
@@ -64,14 +46,14 @@ Formatting guidelines:
 - Recipient: ${recipient || 'Not specified (use generic greeting)'}
 - Purpose/Goal: ${purpose}`;
 
-    return callOpenAI(systemPrompt, userPrompt, 0.7);
+    const data = await callOpenAI({ systemPrompt, userPrompt, temperature: 0.7 });
+    return data.choices[0].message.content.trim();
 };
 
 /**
  * Generate a blog article based on topic, keywords, and length.
  */
 export const generateBlog = async (topic, keywords, length) => {
-    // Determine token/length guidelines
     let lengthInstruction = "";
     if (length === 'short') lengthInstruction = "Keep it concise, around 300-400 words. Use 2-3 short sections.";
     else if (length === 'medium') lengthInstruction = "Write a standard length article, around 600-800 words with 3-5 sections.";
@@ -90,7 +72,8 @@ Guidelines:
     const userPrompt = `Topic: ${topic}
 ${keywords ? `Keywords to include: ${keywords}` : 'No specific keywords.'}`;
 
-    return callOpenAI(systemPrompt, userPrompt, 0.8);
+    const data = await callOpenAI({ systemPrompt, userPrompt, temperature: 0.8 });
+    return data.choices[0].message.content.trim();
 };
 
 /**
@@ -101,5 +84,6 @@ export const rewriteParagraph = async (text) => {
     Fix any awkward phrasing while maintaining the original meaning and core message. 
     Output ONLY the rewritten text, without any conversational filler or quotation marks.`;
 
-    return callOpenAI(systemPrompt, text, 0.6);
+    const data = await callOpenAI({ systemPrompt, userPrompt: text, temperature: 0.6 });
+    return data.choices[0].message.content.trim();
 };

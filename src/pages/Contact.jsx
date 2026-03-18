@@ -1,13 +1,47 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
+import emailjs from '@emailjs/browser'
 import Button from '../components/Button/Button'
 import './Contact.css'
 
 const Contact = () => {
+  const form = useRef();
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError(null);
+
+    // Get your EmailJS credentials from .env
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    // Check if keys are set (they are currently placeholders in .env)
+    if (!serviceId || serviceId === 'your_service_id') {
+      console.error('EmailJS not configured');
+      setError('Email service is not configured. Please check your .env file.');
+      setLoading(false);
+      return;
+    }
+
+    emailjs.sendForm(
+      serviceId,
+      templateId,
+      form.current,
+      publicKey
+    )
+    .then((result) => {
+      console.log('Email sent successfully:', result.text);
+      setSubmitted(true);
+      setLoading(false);
+    }, (error) => {
+      console.error('Email sending failed:', error.text);
+      setError('Failed to send message. Please try again later or email us directly.');
+      setLoading(false);
+    });
   };
 
   return (
@@ -57,20 +91,21 @@ const Contact = () => {
                   <Button variant="outline" onClick={() => setSubmitted(false)}>Send Another Message</Button>
                 </div>
               ) : (
-                <form className="contact-form" onSubmit={handleSubmit}>
+                <form className="contact-form" ref={form} onSubmit={handleSubmit}>
+                  {error && <div className="error-message" style={{ color: '#ff4d4d', marginBottom: '1rem', fontWeight: '500' }}>{error}</div>}
                   <div className="form-group-row">
                     <div className="form-group">
                       <label htmlFor="name">Full Name</label>
-                      <input type="text" id="name" placeholder="John Doe" required />
+                      <input type="text" id="name" name="from_name" placeholder="John Doe" required />
                     </div>
                     <div className="form-group">
                       <label htmlFor="email">Email Address</label>
-                      <input type="email" id="email" placeholder="john@example.com" required />
+                      <input type="email" id="email" name="from_email" placeholder="john@example.com" required />
                     </div>
                   </div>
                   <div className="form-group">
                     <label htmlFor="subject">Subject</label>
-                    <select id="subject" required>
+                    <select id="subject" name="subject" required>
                       <option value="">Select a subject</option>
                       <option value="general">General Inquiry</option>
                       <option value="suggestion">Tool Suggestion</option>
@@ -80,9 +115,11 @@ const Contact = () => {
                   </div>
                   <div className="form-group">
                     <label htmlFor="message">Message</label>
-                    <textarea id="message" rows="6" placeholder="How can we help?" required></textarea>
+                    <textarea id="message" name="message" rows="6" placeholder="How can we help?" required></textarea>
                   </div>
-                  <Button type="submit" size="lg">Send Message</Button>
+                  <Button type="submit" size="lg" disabled={loading}>
+                    {loading ? 'Sending...' : 'Send Message'}
+                  </Button>
                 </form>
               )}
             </div>
