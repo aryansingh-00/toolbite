@@ -1,0 +1,68 @@
+.maintenance-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary, #0f0f1a);
+  padding: 2rem;
+}
+
+.maintenance-content {
+  text-align: center;
+  max-width: 520px;
+}
+
+.maintenance-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  animation: spin 4s linear infinite;
+}
+
+@keyframes spin {
+  0%, 100% { transform: rotate(-10deg); }
+  50% { transform: rotate(10deg); }
+}
+
+.maintenance-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-primary, #fff);
+}
+
+.maintenance-message {
+  color: var(--text-secondary, #aaa);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.maintenance-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(134, 59, 255, 0.12);
+  border: 1px solid rgba(134, 59, 255, 0.3);
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  color: var(--color-primary, #863bff);
+  font-size: 0.9rem;
+  margin-bottom: 2.5rem;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #863bff;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.maintenance-footer {
+  color: var(--text-secondary, #666);
+  font-size: 0.85rem;
+}

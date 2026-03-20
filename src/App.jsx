@@ -9,7 +9,10 @@ import { PrivacyPolicy, TermsOfService } from './pages/Legal'
 import SEO from './components/SEO'
 import Analytics from './components/Analytics'
 import AdSenseScript from './components/Ads/AdSenseScript'
+import Maintenance from './pages/Maintenance'
 import './index.css'
+
+const IS_MAINTENANCE = true; // Toggle this to false to bring site back online
 
 const ROUTES = {
   '/': { component: Home, title: 'Home' },
@@ -34,6 +37,8 @@ const ROUTES = {
 };
 
 function App() {
+  if (IS_MAINTENANCE) return <Maintenance />;
+
   const [path, setPath] = useState(window.location.pathname);
 
   useEffect(() => {
