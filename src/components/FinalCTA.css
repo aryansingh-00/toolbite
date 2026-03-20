@@ -1,0 +1,161 @@
+/* c:\toolbite\src\components\FinalCTA.css */
+.cta {
+  background: var(--color-bg);
+  padding: 100px 0;
+  position: relative;
+  z-index: 10;
+}
+
+.cta__inner {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 60px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+}
+
+.cta__glow-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  pointer-events: none;
+}
+
+.cta__glow {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  animation: rotateGlow 15s linear infinite;
+}
+
+.cta__glow-1 {
+  background: var(--color-primary);
+  top: -100px;
+  left: -100px;
+}
+
+.cta__glow-2 {
+  background: #ec4899;
+  bottom: -100px;
+  right: -100px;
+  animation-direction: reverse;
+  animation-duration: 20s;
+}
+
+@keyframes rotateGlow {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.cta__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cta__title {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.cta__desc {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 500px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+
+.cta__form {
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto 20px;
+}
+
+.cta__form-row {
+  display: flex;
+  gap: 12px;
+  background: rgba(0,0,0,0.4);
+  padding: 8px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: all 0.3s ease;
+}
+
+.cta__form-row:focus-within {
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+  background: rgba(0,0,0,0.6);
+}
+
+.cta__input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 12px 16px;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  outline: none;
+}
+
+.cta__input::placeholder {
+  color: rgba(255,255,255,0.3);
+}
+
+.cta__btn {
+  padding: 12px 28px;
+}
+
+.cta__secondary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.cta__or {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.cta__demo-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: all 0.3s ease;
+  color: #fff;
+}
+
+.cta__demo-btn:hover {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.3);
+  transform: translateY(-2px);
+}
+
+.cta__trust {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.4);
+}
+
+@media (max-width: 640px) {
+  .cta__inner { padding: 40px 20px; }
+  .cta__title { font-size: 2rem; }
+  .cta__form-row { flex-direction: column; padding: 16px; }
+}

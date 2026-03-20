@@ -1,0 +1,121 @@
+.usecases {
+  background: var(--color-bg);
+  overflow: hidden;
+}
+
+.usecases__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 32px;
+  justify-content: center;
+}
+
+.usecases__tab {
+  padding: 10px 20px;
+  border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: transparent;
+  color: rgba(255,255,255,0.55);
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.usecases__tab:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.06);
+}
+
+.usecases__tab.active {
+  background: var(--gradient-brand);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 0 20px rgba(99,102,241,0.35);
+}
+
+.usecases__panel {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  padding: 48px;
+  align-items: center;
+}
+
+.usecases__panel-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.usecases__panel-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.usecases__panel-desc {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.75;
+  max-width: 540px;
+}
+
+.usecases__benefits {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.usecases__benefit {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.usecases__benefit-check {
+  color: var(--color-primary-light);
+  font-weight: 700;
+}
+
+/* Visual */
+.usecases__panel-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 180px;
+  height: 180px;
+  flex-shrink: 0;
+}
+
+.usecases__visual-orb {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  opacity: 0.15;
+  filter: blur(30px);
+  animation: blobFloat 5s ease-in-out infinite;
+}
+
+.usecases__visual-text {
+  font-size: 5rem;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .usecases__panel {
+    grid-template-columns: 1fr;
+    padding: 32px 24px;
+  }
+  .usecases__panel-visual { display: none; }
+  .usecases__benefits { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,239 @@
+/* c:\toolbite\src\components\HowItWorks.css */
+.how {
+  background: var(--color-bg-2);
+  overflow: hidden;
+  position: relative;
+}
+
+.section-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 80px;
+}
+
+/* Timeline Track */
+.how__timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.how__timeline-line-track {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.how__timeline-line-fill {
+  width: 100%;
+  background: linear-gradient(180deg, var(--color-primary-light), var(--color-primary), var(--color-neon));
+  box-shadow: 0 0 15px var(--color-primary);
+  transform-origin: top;
+}
+
+/* Rows */
+.how__timeline-row {
+  display: flex;
+  position: relative;
+  margin-bottom: 60px;
+  width: 100%;
+}
+
+.how__row-left {
+  justify-content: flex-end;
+  padding-right: 50%;
+}
+
+.how__row-right {
+  justify-content: flex-start;
+  padding-left: 50%;
+}
+
+.how__timeline-row:last-child {
+  margin-bottom: 0px;
+}
+
+/* Center dot */
+.how__timeline-dot {
+  position: absolute;
+  left: 50%;
+  top: 30px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-bg-2);
+  border: 4px solid;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.how__timeline-dot-inner {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* Card Geometry */
+.how__card {
+  width: calc(100% - 60px);
+  padding: 30px;
+  position: relative;
+  z-index: 3;
+}
+
+.how__row-left .how__card {
+  margin-right: 60px;
+}
+
+.how__row-right .how__card {
+  margin-left: 60px;
+}
+
+/* Header & Text */
+.how__card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.how__card-num {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+.how__card-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.how__card-desc {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+/* Visual Microinteractions */
+.how__card-visual {
+  height: 120px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Waveforms */
+.flow-visual__waveform {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 50px;
+}
+
+.flow-visual__waveform span {
+  width: 6px;
+  background: #06b6d4;
+  border-radius: 3px;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+}
+
+.flow-visual__waveform--green span {
+  background: #22c55e;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+  width: 8px;
+}
+
+/* Bubbles */
+.flow-visual__bubble {
+  background: rgba(255,255,255,0.05);
+  padding: 14px 24px;
+  border-radius: 20px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.95rem;
+  box-shadow: var(--glass-shadow);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.flow-visual__bubble--user {
+  border-bottom-right-radius: 4px;
+  border-color: rgba(139, 92, 246, 0.3);
+  background: rgba(139, 92, 246, 0.05);
+}
+
+.flow-visual__bubble--ai {
+  border-bottom-left-radius: 4px;
+  border-color: rgba(245, 158, 11, 0.3);
+  background: rgba(245, 158, 11, 0.05);
+}
+
+/* Processing Nodes */
+.flow-visual__processing {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.flow-visual__node {
+  width: 16px;
+  height: 16px;
+  background: #ec4899;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(236, 72, 153, 0.8);
+  animation: pulseNode 1.5s infinite alternate;
+}
+.flow-visual__node:nth-child(2) { animation-delay: 0.5s; background: #8b5cf6; box-shadow: 0 0 15px rgba(139, 92, 246, 0.8); }
+.flow-visual__node:nth-child(3) { animation-delay: 1s; background: #06b6d4; box-shadow: 0 0 15px rgba(6, 182, 212, 0.8); }
+
+@keyframes pulseNode {
+  0% { transform: scale(0.6); opacity: 0.3; }
+  100% { transform: scale(1.4); opacity: 1; }
+}
+
+/* Mobile Layout */
+@media (max-width: 768px) {
+  .how__timeline-line-track {
+    left: 20px;
+    transform: none;
+  }
+  
+  .how__row-left, .how__row-right {
+    justify-content: flex-end;
+    padding: 0 0 0 50px;
+  }
+  
+  .how__timeline-dot {
+    left: 20px;
+    transform: translateX(-50%);
+  }
+  
+  .how__card {
+    width: 100%;
+  }
+
+  .how__row-left .how__card, 
+  .how__row-right .how__card {
+    margin: 0;
+  }
+}

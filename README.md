@@ -1,16 +1,38 @@
-# React + Vite
+# ToolBite Realtime Voice AI 🎙️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the ToolBite Open-Source Voice Application. This repository contains the complete frontend dashboard, WebRTC engine, and secure backend proxy necessary for hosting your own low-latency, real-time AI Voice platform using OpenAI's Native WebRTC Realtime API.
 
-Currently, two official plugins are available:
+## Features
+- **True Peer-to-Peer AI Voice:** Bypasses heavy wrapper libraries by connecting your browser's native `RTCPeerConnection` directly to the OpenAI Model via an ephemeral secure token proxy.
+- **Granular Server VAD:** Voice Activity Detection handles fluid human interruptions and intelligent mid-sentence pause tracking.
+- **Dynamic Config:** Swap the AI Voice (Alloy, Echo, Nova, etc.) and native speaking Language mid-session over the data channel.
+- **Interactive UI Dashboard:** A beautiful multi-page SaaS design transitioning natively to a full-screen, video-call style session dashboard with live generated CSS 3D visualization.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Setup Instructions (Local Development)
 
-## React Compiler
+1. **Install Dependencies**
+   ```bash
+   npm install
+   ```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+2. **Configure Environment Variables**
+   Rename `.env.example` to `.env` and paste your actual OpenAI API Key.
+   *Security Note: Your `OPENAI_API_KEY` is completely hidden from the client. It is only utilized by the Vite Dev Server Proxy (or Next.js API route).*
 
-## Expanding the ESLint configuration
+3. **Start the App**
+   ```bash
+   npm run dev
+   ```
+   *Navigate to `http://localhost:5173/` and click "Launch Live App"!*
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Production Deployment Notes
+
+In production, frontend clients cannot securely create their own `OPENAI_API_KEY` authenticated requests. You **MUST** host a backend endpoint that acts as a secure Token Proxy.
+
+We have included multiple methods:
+- **Next.js App Router (Included):** Inspect `app/api/session/route.js`. This is a fully production-ready route featuring IP-based Rate Limiting and strict error bounds.
+- **Vite SSR/Proxy:** For pure Vite stacks, you must extract the middleware logic found in `vite.config.js` (`apiSessionPlugin`) to a standalone Express / Node.js secure server, as Vite's local proxy does not natively translate automatically into production static hosts like Vercel or Netlify without custom server configurations.
+
+### Security Configurations
+- **Rate Limiting:** IP limiting is implemented to prevent token drain. Adjust `MAX_REQUESTS_PER_WINDOW` as seen fit.
+- **Session Cleanup:** WebRTC inherently cleans up detached browser sockets, but explicit `.close()` logic is attached to the browser's `beforeunload` event listeners to perfectly terminate sessions even if users brute-close tabs.

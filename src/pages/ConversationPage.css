@@ -1,0 +1,345 @@
+/* src/pages/ConversationPage.css */
+
+.conv-page {
+  height: 100vh;
+  width: 100vw;
+  background: radial-gradient(circle at 50% 50%, #111827 0%, #030712 100%);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  font-family: var(--font-body);
+}
+
+/* 1. Top Navigation */
+.conv-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 24px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+
+.conv-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-family: var(--font-display);
+  padding: 12px 24px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+.conv-logo:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+.conv-logo .logo-icon { 
+  color: #06b6d4; 
+  font-weight: 800; 
+  font-size: 1.4rem; 
+}
+
+.conv-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.conv-timer {
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-family: monospace;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.conv-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 10px 24px;
+  border-radius: 20px;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+}
+
+.pulse-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #4b5563;
+}
+
+/* Status Mappings */
+.conv-status-badge.connecting .pulse-dot { background: #f59e0b; animation: pulseDot 1s infinite alternate; }
+.conv-status-badge.user-listening .pulse-dot { background: #22c55e; box-shadow: 0 0 12px rgba(34, 197, 94, 0.6); }
+.conv-status-badge.user-speaking .pulse-dot { background: #8b5cf6; box-shadow: 0 0 12px rgba(139, 92, 246, 0.6); animation: pulseDot 0.4s infinite alternate; }
+.conv-status-badge.ai-thinking .pulse-dot { background: #ec4899; box-shadow: 0 0 12px rgba(236, 72, 153, 0.6); animation: pulseDot 0.8s infinite alternate; }
+.conv-status-badge.ai-speaking .pulse-dot { background: #06b6d4; box-shadow: 0 0 12px rgba(6, 182, 212, 0.6); animation: pulseDot 0.3s infinite alternate; }
+.conv-status-badge.ending .pulse-dot { background: #06b6d4; animation: pulseDot 0.3s infinite alternate; }
+.conv-status-badge.paused .pulse-dot { background: #f59e0b; }
+.conv-status-badge.error .pulse-dot { background: #ef4444; box-shadow: 0 0 12px rgba(239, 68, 68, 0.6); }
+
+@keyframes pulseDot { 0% { opacity: 0.5; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1.3); } }
+
+/* 2. Main Video-Call Style Area */
+.conv-main {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.conv-avatar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+}
+
+/* 3. Hero Overlay (Before Connect) */
+.conv-hero-overlay {
+  text-align: center;
+  position: relative;
+  z-index: 20;
+  max-width: 600px;
+  padding: 40px;
+}
+.conv-hero-overlay h1 { 
+  font-size: 4rem; 
+  color: #fff; 
+  margin-bottom: 24px; 
+  font-family: var(--font-display); 
+  letter-spacing: -1px;
+}
+.conv-hero-overlay p { 
+  font-size: 1.25rem; 
+  color: rgba(255,255,255,0.7); 
+  margin-bottom: 48px; 
+  line-height: 1.6;
+}
+.conv-start-btn { 
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 48px; 
+  font-size: 1.2rem; 
+  font-weight: 600;
+  border-radius: 40px; 
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+}
+.conv-error-text { 
+  color: #fca5a5; 
+  background: rgba(239, 68, 68, 0.1); 
+  padding: 16px; 
+  border-radius: 12px; 
+  margin-bottom: 24px; 
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* 4. Live 3D Avatar Core Framework */
+.conv-3d-avatar-wrapper {
+  width: 100%;
+  max-width: 600px;
+  height: 60vh;
+  min-height: 400px;
+  max-height: 600px;
+  margin-bottom: 120px; /* Push upwards away from bottom controls */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* 5. Live Transcript Sidebar Overlay */
+.conv-transcript-overlay {
+  position: absolute;
+  right: 48px;
+  top: 120px;
+  bottom: 140px;
+  width: 380px;
+  padding: 24px;
+  border-radius: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: rgba(10, 15, 30, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+  z-index: 50;
+}
+
+.conv-transcript-empty {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.conv-msg {
+  padding: 16px 20px;
+  border-radius: 16px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.conv-msg-sender {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.6;
+}
+.conv-msg-ai { 
+  background: rgba(6, 182, 212, 0.1); 
+  border: 1px solid rgba(6, 182, 212, 0.2); 
+  border-top-left-radius: 4px; 
+  align-self: flex-start; 
+  width: 90%;
+}
+.conv-msg-user { 
+  background: rgba(139, 92, 246, 0.1); 
+  border: 1px solid rgba(139, 92, 246, 0.2); 
+  border-top-right-radius: 4px; 
+  align-self: flex-end; 
+  width: 90%;
+  text-align: right;
+}
+
+/* 6. Controls Dock */
+.conv-controls-dock {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  border-radius: 100px;
+  width: 90%;
+  max-width: 1200px;
+  background: rgba(15, 23, 42, 0.7) !important;
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(24px);
+  z-index: 100;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.conv-dock-left { flex: 1; display: flex; align-items: center; gap: 16px; }
+.conv-dock-right { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 12px; }
+.conv-dock-center { display: flex; align-items: center; gap: 24px; }
+
+.conv-lang-select {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 20px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.conv-lang-select:hover:not(:disabled) { background: rgba(255, 255, 255, 0.1); }
+.conv-lang-select:disabled { opacity: 0.4; cursor: not-allowed; }
+.conv-lang-select option { background: #0f172a; color: white; }
+
+.conv-dock-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  border-radius: 40px;
+  border: none;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.connect-btn { background: var(--color-primary); color: white; box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); }
+.connect-btn:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(99, 102, 241, 0.6); }
+
+.end-btn { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+.end-btn:hover:not(:disabled) { background: rgba(239, 68, 68, 0.25); transform: translateY(-2px); }
+.end-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.mute-btn { background: rgba(255, 255, 255, 0.08); color: white; border: 1px solid rgba(255,255,255,0.1); }
+.mute-btn:hover { background: rgba(255, 255, 255, 0.15); }
+.mute-btn.muted { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+
+/* Audio Visualizer Mini */
+.conv-mini-vis { 
+  display: flex; 
+  gap: 6px; 
+  align-items: center; 
+  height: 32px; 
+  padding: 0 20px; 
+  background: rgba(255,255,255,0.03);
+  border-radius: 16px;
+}
+.conv-mini-vis span { width: 4px; height: 6px; background: rgba(255,255,255,0.2); border-radius: 2px; transition: height 0.1s; }
+.conv-mini-vis.ai-speaking span { background: #06b6d4; box-shadow: 0 0 10px #06b6d4; animation: vizPulse 0.4s infinite alternate; }
+.conv-mini-vis.ai-speaking span:nth-child(2) { animation-delay: 0.1s; }
+.conv-mini-vis.ai-speaking span:nth-child(3) { animation-delay: 0.2s; }
+.conv-mini-vis.ai-speaking span:nth-child(4) { animation-delay: 0.3s; }
+.conv-mini-vis.ai-speaking span:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes vizPulse { 0% { height: 6px; } 100% { height: 24px; } }
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .conv-transcript-overlay { right: 24px; width: 300px; }
+  .conv-nav { padding: 20px 24px; }
+}
+
+@media (max-width: 768px) {
+  .conv-controls-dock { 
+    flex-wrap: wrap; 
+    border-radius: 24px; 
+    left: 16px; 
+    right: 16px; 
+    bottom: 16px; 
+    transform: none; 
+    width: auto; 
+    max-width: none; 
+    padding: 16px;
+  }
+  .conv-dock-left, .conv-dock-right { display: none; }
+  .conv-dock-center { width: 100%; justify-content: center; }
+  .conv-transcript-overlay { display: none; /* Hide chat to focus on video call avatar */ }
+  .conv-3d-avatar-wrapper { width: 300px; height: 300px; }
+  .conv-hero-overlay h1 { font-size: 2.5rem; }
+  .conv-status-badge { display: none; } /* Replaced by controls logic on very small devices */
+}
