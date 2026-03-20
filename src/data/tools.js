@@ -43,8 +43,8 @@ export const tools = [
     id: 'resume-builder',
     title: 'Resume Builder',
     description: 'Create professional resumes in minutes with our templates.',
-    metaTitle: 'Resume Builder - Create Your CV Online | ToolBite',
-    metaDescription: 'Build a professional resume in minutes. Use our free templates to create a CV that gets you hired. High-quality PDF export.',
+    metaTitle: 'Free Resume Templates | Build Your Perfect CV Online | ToolBite',
+    metaDescription: 'Access over 20+ free resume templates and build your professional CV in minutes. Industry-specific, job-specific, and high-quality PDF export.',
     category: 'Career Tools',
     icon: '💼',
     link: '/tools/resume-builder'

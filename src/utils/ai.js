@@ -6,6 +6,36 @@
  * Generic function to call the internal OpenAI proxy
  */
 const callOpenAI = async (payload) => {
+    // Local Development Bypass: Call OpenAI directly if API key is present and we're in dev mode
+    if (import.meta.env.DEV && import.meta.env.VITE_OPENAI_API_KEY) {
+        try {
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`
+                },
+                body: JSON.stringify({
+                    model: 'gpt-3.5-turbo',
+                    messages: [
+                        { role: 'system', content: payload.systemPrompt },
+                        { role: 'user', content: payload.userPrompt }
+                    ],
+                    temperature: payload.temperature || 0.7,
+                })
+            });
+            if (!response.ok) {
+                const errData = await response.json();
+                throw new Error(errData.error?.message || 'OpenAI API Error');
+            }
+            return await response.json();
+        } catch (error) {
+            console.error('Direct OpenAI call failed:', error);
+            throw error;
+        }
+    }
+
+    // Default: Use internal proxy (Production / Vercel)
     try {
         const response = await fetch('/api/openai', {
             method: 'POST',

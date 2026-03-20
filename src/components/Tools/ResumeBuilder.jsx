@@ -1,18 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ResumeBuilder.css';
+import { RESUME_PRESETS } from '../../data/resumePresets';
 
 const ResumeBuilder = () => {
-  const [formData, setFormData] = useState({
-    fullName: 'Jane Doe',
-    jobTitle: 'Senior Software Engineer',
-    email: 'jane.doe@example.com',
-    phone: '+1 234 567 890',
-    location: 'San Francisco, CA',
-    summary: 'Experienced software engineer with a passion for building scalable web applications and leading cross-functional teams. Expert in React, Node.js, and cloud architecture.',
-    skills: 'React, Node.js, TypeScript, AWS, Docker, GraphQL, System Design',
-    experience: 'Senior Software Engineer | TechCorp (2020 - Present)\n- Led the migration of microservices to AWS, reducing latency by 30%.\n- Mentored 5 junior developers and improved code quality through rigorous PR reviews.\n\nSoftware Engineer | StartupInc (2018 - 2020)\n- Developed a real-time analytics dashboard using React and D3.js.\n- Automated CI/CD pipelines, increasing deployment frequency by 50%.',
-    education: 'B.S. in Computer Science | University of Technology (2014 - 2018)\nSumma Cum Laude, Dean\'s List for 4 consecutive years.',
+  const [currentCategory, setCurrentCategory] = useState('standard'); // Default category
+  const [formData, setFormData] = useState(() => {
+    // Initial check on mount
+    const params = new URLSearchParams(window.location.search);
+    const categoryFromUrl = params.get('template') || 'standard';
+    const templateIdFromUrl = params.get('sample');
+
+    const presetsForCategory = RESUME_PRESETS[categoryFromUrl] || RESUME_PRESETS.standard;
+
+    if (templateIdFromUrl) {
+      const selectedPreset = presetsForCategory.find(p => p.id === templateIdFromUrl);
+      if (selectedPreset) {
+        return selectedPreset.formData;
+      }
+    }
+    // Default to the first preset in the current category
+    return presetsForCategory[0].formData;
   });
+
+  // Listen for changes if the user navigates without full reload
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const categoryFromUrl = params.get('template') || 'standard';
+    const templateIdFromUrl = params.get('sample');
+
+    setCurrentCategory(categoryFromUrl); // Update category state
+
+    const presetsForCategory = RESUME_PRESETS[categoryFromUrl] || RESUME_PRESETS.standard;
+
+    if (templateIdFromUrl) {
+      const selectedPreset = presetsForCategory.find(p => p.id === templateIdFromUrl);
+      if (selectedPreset) {
+        setFormData(selectedPreset.formData);
+      } else {
+        setFormData(presetsForCategory[0].formData);
+      }
+    } else {
+      setFormData(presetsForCategory[0].formData);
+    }
+  }, [window.location.search]);
+
+  const handlePresetChange = (e) => {
+    const presetId = e.target.value;
+    const presets = RESUME_PRESETS[currentCategory] || RESUME_PRESETS.standard;
+    const selected = presets.find(p => p.id === presetId);
+    if (selected) {
+      setFormData(selected.formData);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,7 +80,17 @@ const ResumeBuilder = () => {
     <div className="resume-builder-tool">
       <div className="tool-grid">
         <div className="form-section card">
-          <h3 className="section-title">Resume Details</h3>
+          <div className="section-header-flex">
+            <h3 className="section-title">Resume Details</h3>
+            <div className="template-selector">
+              <label>Choose Sample:</label>
+              <select onChange={handlePresetChange} className="preset-select">
+                {(RESUME_PRESETS[currentCategory] || RESUME_PRESETS.standard).map(preset => (
+                  <option key={preset.id} value={preset.id}>{preset.name}</option>
+                ))}
+              </select>
+            </div>
+          </div>
           <div className="form-grid">
             <div className="form-group">
               <label>Full Name</label>
@@ -136,7 +185,10 @@ const ResumeBuilder = () => {
           </div>
           <div className="form-actions">
             <button className="btn btn-outline" onClick={handleClear}>Clear Form</button>
-            <button className="btn btn-primary" onClick={handlePrint}>Print / Download PDF</button>
+            <div className="download-container">
+              <button className="btn btn-primary" onClick={handlePrint}>Print / Download PDF</button>
+              <p className="download-hint">Note: In the print window, select <strong>"Save as PDF"</strong> as the destination.</p>
+            </div>
           </div>
         </div>
 
@@ -146,9 +198,9 @@ const ResumeBuilder = () => {
               <h1>{formData.fullName || 'Name Placeholder'}</h1>
               <p className="job-title">{formData.jobTitle || 'Job Title Placeholder'}</p>
               <div className="contact-info">
-                <span>{formData.email}</span>
-                {formData.phone && <span> • {formData.phone}</span>}
-                {formData.location && <span> • {formData.location}</span>}
+                {formData.email && <span><i className="contact-icon">✉️</i> {formData.email}</span>}
+                {formData.phone && <span><i className="contact-icon">📞</i> {formData.phone}</span>}
+                {formData.location && <span><i className="contact-icon">📍</i> {formData.location}</span>}
               </div>
             </div>
 

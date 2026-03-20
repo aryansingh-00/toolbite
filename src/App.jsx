@@ -9,6 +9,10 @@ import Contact from './pages/Contact'
 import { PrivacyPolicy, TermsOfService } from './pages/Legal'
 import SEO from './components/SEO'
 import Analytics from './components/Analytics'
+import ResumeLanding from './pages/ResumeLanding'
+import Maintenance from './pages/Maintenance'
+
+const IS_MAINTENANCE = true; // Toggle this to true to take site offline
 
 // Lazy load tool components
 const WordCounter = React.lazy(() => import('./components/Tools/WordCounter'));
@@ -119,7 +123,16 @@ function App() {
     // 2. Check dynamic tool routes
     const tool = tools.find(t => t.link === path);
     if (tool) {
+      if (tool.id === 'resume-builder') {
+        return { type: 'resume-hub', config: tool };
+      }
       return { type: 'tool', config: tool };
+    }
+
+    // Special case for resume builder app sub-route
+    if (path === '/tools/resume-builder/create') {
+      const resumeTool = tools.find(t => t.id === 'resume-builder');
+      return { type: 'tool', config: resumeTool };
     }
 
     // 3. Fallback to Home
@@ -131,6 +144,20 @@ function App() {
    */
   const renderContent = () => {
     const { type, config } = routeResult;
+
+    if (type === 'resume-hub') {
+      return (
+        <>
+          <SEO 
+            title={config.metaTitle} 
+            description={config.metaDescription} 
+            canonicalPath={config.link} 
+          />
+          <Analytics pageTitle="Resume Hub" />
+          <ResumeLanding />
+        </>
+      );
+    }
 
     if (type === 'tool') {
       const ToolComponent = TOOL_COMPONENTS[config.id];
@@ -162,6 +189,15 @@ function App() {
       </>
     );
   };
+
+    if (IS_MAINTENANCE) {
+      return (
+        <>
+          <SEO title="Maintenance | ToolBite" description="We'll be back soon!" />
+          <Maintenance />
+        </>
+      );
+    }
 
     return (
       <Layout>

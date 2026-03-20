@@ -46,6 +46,30 @@ body {
   overflow-x: hidden;
 }
 
+/* Spinner and Loading States */
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(99, 102, 241, 0.1);
+  border-top: 3px solid var(--primary-color);
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.p-20 {
+  padding: 5rem;
+}
+
 a {
   text-decoration: none;
   color: inherit;
