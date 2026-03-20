@@ -82,6 +82,8 @@ const TOOL_COMPONENTS = {
 };
 
 function App() {
+  if (IS_MAINTENANCE) return <Maintenance />;
+
   const [path, setPath] = useState(window.location.pathname);
 
   // Handle browser back/forward buttons and SPA link interception
@@ -189,15 +191,6 @@ function App() {
       </>
     );
   };
-
-    if (IS_MAINTENANCE) {
-      return (
-        <>
-          <SEO title="Maintenance | ToolBite" description="We'll be back soon!" />
-          <Maintenance />
-        </>
-      );
-    }
 
     return (
       <Layout>
