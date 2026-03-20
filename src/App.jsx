@@ -12,7 +12,7 @@ import Analytics from './components/Analytics'
 import ResumeLanding from './pages/ResumeLanding'
 import Maintenance from './pages/Maintenance'
 
-const IS_MAINTENANCE = true; // Toggle this to true to take site offline
+const IS_MAINTENANCE = false; // Toggle this to true to take site offline
 
 // Lazy load tool components
 const WordCounter = React.lazy(() => import('./components/Tools/WordCounter'));
