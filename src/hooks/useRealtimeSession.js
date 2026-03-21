@@ -22,8 +22,11 @@ export function useRealtimeSession() {
       setErrorMessage('');
       setTranscript([]);
       
-      const r = await fetch("/api/session");
-      if (!r.ok) throw new Error("Backend route failed to initialize realtime session.");
+      const r = await fetch("/api/session", { method: "POST" });
+      if (!r.ok) {
+         const errData = await r.json().catch(() => ({}));
+         throw new Error(errData.error || "Backend route failed to initialize realtime session.");
+      }
       const initData = await r.json();
       if (!initData.client_secret?.value) {
          throw new Error("Failed to get ephemeral token from API. Check server logs or API key.");
